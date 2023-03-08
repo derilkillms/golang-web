@@ -13,7 +13,7 @@ func TemplateDataMap(writer http.ResponseWriter, request *http.Request) {
 	t := template.Must(template.ParseFiles("./templates/name.gohtml"))
 	t.ExecuteTemplate(writer, "name.gohtml", map[string]interface{}{
 		"Title": "Template Data Map",
-		"Name":  "Rendy",
+		"Name":  "Deril",
 	})
 }
 

@@ -43,3 +43,42 @@ func TestTemplateActionOperator(t *testing.T) {
 	body, _ := io.ReadAll(recorder.Result().Body)
 	fmt.Println(string(body))
 }
+
+func TemplateActionRange(writer http.ResponseWriter, request *http.Request) {
+	t := template.Must(template.ParseFiles("./templates/range.gohtml"))
+	t.ExecuteTemplate(writer, "range.gohtml", map[string]interface{}{
+		"Title": "Template action range",
+		"Hobbies": []string{
+			"game", "read", "code",
+		},
+	})
+}
+
+func TestTemplateActionRange(t *testing.T) {
+	request := httptest.NewRequest(http.MethodGet, "http://localhost:8080", nil)
+	recorder := httptest.NewRecorder()
+
+	TemplateActionRange(recorder, request)
+	body, _ := io.ReadAll(recorder.Result().Body)
+	fmt.Println(string(body))
+}
+
+func TemplateActionWith(write http.ResponseWriter, request *http.Request) {
+	t := template.Must(template.ParseFiles("./templates/address.gohtml"))
+	t.ExecuteTemplate(write, "address.gohtml", map[string]interface{}{
+		"Title": "Template action with",
+		"Name":  "Deril",
+		"Address": map[string]interface{}{
+			"Street": "JL. Sesama",
+			"City":   "Ciamis",
+		},
+	})
+}
+func TestTemplateActionWith(t *testing.T) {
+	request := httptest.NewRequest(http.MethodGet, "http://localhost:8080", nil)
+	recorder := httptest.NewRecorder()
+
+	TemplateActionWith(recorder, request)
+	body, _ := io.ReadAll(recorder.Result().Body)
+	fmt.Println(string(body))
+}
